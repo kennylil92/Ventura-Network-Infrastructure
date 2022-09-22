@@ -1,0 +1,180 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "This template provision the ventura prod network  infrastructure"
+Metadata: {}
+
+Parameters: 
+  VenturaProdVPCCidrBlockPara:
+    Description: Please provide a CidrBlock for the Ventura Prod VPC
+    Type: String
+    Default: 10.0.0.0/16
+  
+  #Availability one A para
+  VenturaProdaz1aPara:
+    Description: Please provide an Availability zone for the Ventura Prod VenturaProdSN1
+    Type: AWS::EC2::AvailabilityZone::Name 
+
+  VenturaProdNatalbSN1CidrBlockPara:
+    Description: Please provide a CidrBlock for the VenturaProdNatalbSN1
+    Type: String
+
+#availability zone B para
+  VenturaProdaz2bPara:
+    Description: "Please provide an availability zone for the VenturaProdaz2b"
+    Type: AWS::EC2::AvailabilityZone::Name 
+
+  VenturaProdalbSN2CidrblockPara:
+    Description: "Please provide a CidrBlock for the VenturaProdalbSN2"
+    Type: String
+
+  VenturaprodWebCidrblockSN1Para:
+    Description: 
+    Type: String
+
+  VenturaProdWebSN2CidrblockPara:
+    Description: "Please provide a cidrblock for VenturaprodWebSN2"
+    Type: String
+
+  VenturaProdAppSN1CidrblockPara:
+    Description: "Please provide a cidrblock for VenturaProdAppSN1"
+    Type: String
+
+  VenturaProdAppSN2CidrblockPara:
+    Description: "Please provide a cidrblock for VenturaProdAppSN2"
+    Type: String
+    
+  VenturaProdDBSN1CidrBlockPara:
+    Description: "Please provide a cidrblock for VenturaProdDBSN1"
+    Type: String
+
+  VenturaProdDBSN2CidrblockPara:
+    Description: "Please provide a cidrblock for VenturaProdDBSN2"
+    Type: String
+
+Mappings: {}
+
+Conditions: {}
+
+Resources: 
+  VenturaProdVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VenturaProdVPCCidrBlockPara
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: VenturaProdVPC
+  #ventura prod ALB/NATGateway1 Public Subnet
+  VenturaProdNatalbSN1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref VenturaProdaz1aPara
+      VpcId: !Ref VenturaProdVPC
+      CidrBlock: !Ref VenturaProdNatalbSN1CidrBlockPara
+      Tags:
+        - Key: Name
+          Value: VenturaProdNatalbSN1
+          
+#ventura prod ALB Public Subnet2
+  VenturaProdalbSN2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref VenturaProdza2bPara
+      VpcId: !Ref VenturaProdVPC
+      CidrBlock: !Ref VenturaProdalbSN2CidrblockPara
+      Tags:
+        - Key: Name
+          Value: VenturaProdalbSN2
+
+#ventura prod web Private Subnet 1
+  VenturaprodWebSN1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref VenturaProdaz1aPara
+      VpcId: !Ref VenturaProdVPC
+      CidrBlock: !Ref VenturaprodWebCidrblockSN1Para
+      Tags:
+        - Key: Name
+          Value: VenturaprodWebSN1
+
+#Ventura prod web private subnet 2
+  VenturaProdWebSN2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref VenturaProdaz2bPara
+      VpcId: !Ref VenturaProdVPC
+      CidrBlock: !Ref VenturaProdWebSN2CidrblockPara
+      Tags:
+        - Key: Name
+          Value: VenturaProdWebSN2
+
+#Ventura prd App Subnet 1
+VenturaProdAppSN1:
+  Type: AWS::EC2::Subnet
+  Properties:
+    AvailabilityZone: !Ref VenturaProdaz1aPara
+    VpcId: !Ref VenturaProdVPC
+    CidrBlock: !Ref VenturaProdAppSN1CidrblockPara
+    Tags:
+      - Key: Name
+        Value: VenturaProdAppSN1
+
+#Ventura Prod App Subnet 2 
+VenturaProdAppSN2:
+  Type: AWS::EC2::Subnet
+  Properties:
+    AvailabilityZone: !Ref VenturaProdza2bPara
+    VpcId: !Ref VenturaProdVPC
+    CidrBlock: !Ref VenturaProdAppSN2CidrblockPara
+    Tags:
+      - Key: Name
+        Value: VenturaProdAppSN2
+
+#Ventura Prod DB Subnet 1
+VenturaProdDBSN1:
+  Type: AWS::EC2::Subnet
+  Properties:
+    AvailabilityZone: !Ref VenturaProdaz1aPara
+    VpcId: !Ref VenturaProdVPC
+    CidrBlock: !Ref VenturaProdDBSN1CidrBlockPara
+    Tags:
+      - Key: Name
+        Value: VenturaProdDBSN1
+
+#Ventura Prod DB Subnet 2
+VenturaProdDBSN2:
+  Type: AWS::EC2::Subnet
+  Properties:
+    AvailabilityZone: !Ref VenturaProdza2bPara
+    VpcId: !Ref VenturaProdVPC
+    CidrBlock: !Ref VenturaProdDBSN2CidrblockPara
+    Tags:
+      - Key: Name
+        Value: VenturaProdDBSN2
+
+Outputs: {}
+
+
+
+
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
+- ParameterKey: ''
+  ParameterValue: ''
